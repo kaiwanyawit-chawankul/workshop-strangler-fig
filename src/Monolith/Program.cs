@@ -10,26 +10,32 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<MonolithDbContext>();
+    await db.Database.MigrateAsync();
     if (!db.Users.Any())
     {
         db.Users.AddRange(
             new User(1, "ada@example.com", "Ada"),
-            new User(2, "linus@example.com", "Linus"));
+            new User(2, "linus@example.com", "Linus")
+        );
         db.Products.AddRange(
             new Product(1, "SKU-1", "Keyboard", 49.9m),
-            new Product(2, "SKU-2", "Mouse", 29.9m));
+            new Product(2, "SKU-2", "Mouse", 29.9m)
+        );
         db.Orders.Add(new Order(1, 1, 1, 1, DateTime.UtcNow));
-        db.SaveChanges();
+        await db.SaveChangesAsync();
     }
 }
-app.MapDelete("/clear", async (MonolithDbContext db) =>
-{
-    await db.Orders.ExecuteDeleteAsync();
-    await db.Products.ExecuteDeleteAsync();
-    await db.Users.ExecuteDeleteAsync();
+app.MapDelete(
+    "/clear",
+    async (MonolithDbContext db) =>
+    {
+        await db.Orders.ExecuteDeleteAsync();
+        await db.Products.ExecuteDeleteAsync();
+        await db.Users.ExecuteDeleteAsync();
 
-    await db.SaveChangesAsync();
-});
+        await db.SaveChangesAsync();
+    }
+);
 
 app.MapGet("/users", async (MonolithDbContext db) => await db.Users.ToListAsync());
 app.MapPost(
