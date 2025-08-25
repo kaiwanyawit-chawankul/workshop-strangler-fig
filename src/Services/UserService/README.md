@@ -35,3 +35,13 @@ dotnet tool install --global dotnet-ef || true
 dotnet ef migrations add Init
 dotnet ef database update
 DOTNET_URLS=http://localhost:5091 dotnet run
+
+
+# monolith
+DOTNET_URLS=http://localhost:5070 dotnet run
+# user service
+DOTNET_URLS=http://localhost:5091 dotnet run
+# gateway
+DOTNET_URLS=http://localhost:5080 dotnet watch run
+# AcceptanceTests
+dotnet test
