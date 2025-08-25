@@ -42,6 +42,26 @@
 * Gateway + services provide full functionality.
 
 ---
+## Checklist / Acceptance Criteria
+ - Baseline acceptance tests green against Monolith
+ - Gateway proxies all traffic
+ - `/users` routed to UserService; tests still green
+ - `/products` routed to ProductService; tests still green
+ - `/orders`/orders routed to OrderService; mock email received; tests still green
+ - Monolith no longer exposes Users/Products/Orders
+
+## Tips & Gotchas
+ - Keep route shapes and response schemas identical as you migrate, so tests don’t need rewrites.
+ - Use SQLite files per service to simulate autonomous persistence without environment friction.
+ - For real systems, do a data backfill + dual‑write window before flipping routes.
+ - Keep the Gateway simple; push business logic into services.
+
+## References (general)
+ - EF Migrations: dotnet ef migrations add <Name> then dotnet ef database update.
+ - YARP routes can be hot‑reloaded if you keep reloadOnChange: true.
+ - Use HttpClientFactory and IHostedService for production‑grade outbox dispatchers.
+
+---
 
 ## Stretch Goals
 
