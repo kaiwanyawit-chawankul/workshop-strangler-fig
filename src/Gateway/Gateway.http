@@ -1,0 +1,9 @@
+@Monolith_HostAddress = http://localhost:5080
+
+GET {{Monolith_HostAddress}}/orders/
+Accept: application/json
+
+###
+
+DELETE {{Monolith_HostAddress}}/clear/
+Accept: application/json

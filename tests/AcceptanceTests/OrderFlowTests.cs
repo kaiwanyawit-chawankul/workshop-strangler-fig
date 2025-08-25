@@ -5,7 +5,7 @@ using Xunit;
 
 public class OrderFlowTests
 {
-    private readonly HttpClient _http = new() { BaseAddress = new Uri("http://localhost:5070") }; // Monolith for Step 1
+    private readonly HttpClient _http = new() { BaseAddress = new Uri("http://localhost:5080") }; // Monolith for Step 1
 
     [Fact]
     public async Task PlaceOrder_SendsConfirmationAndPersists()
