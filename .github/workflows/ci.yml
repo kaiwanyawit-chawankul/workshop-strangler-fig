@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ step1 ]
   pull_request:
     branches: [ main ]
 
@@ -27,12 +27,17 @@ jobs:
     - name: Run tests
       run: dotnet test --no-build --configuration Release --verbosity normal
 
+    - name: Run Gateway in background
+      run: |
+        cd src/Gateway
+        DOTNET_URLS=http://localhost:5080 dotnet run &
+        sleep 5  # give it time to boot
+
     - name: Run Monolith in background
       run: |
         cd src/Monolith
         DOTNET_URLS=http://localhost:5070 dotnet run &
         sleep 5  # give it time to boot
-
     - name: Run Acceptance Tests
       run: |
         cd tests/AcceptanceTests
