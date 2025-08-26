@@ -27,6 +27,11 @@ jobs:
     - name: Run tests
       run: dotnet test --no-build --configuration Release --verbosity normal
 
+    - name: Run UserService in background
+      run: |
+        cd src/Services/UserService
+        DOTNET_URLS=http://localhost:5091 dotnet run &
+        sleep 5  # give it time to boot
     - name: Run Gateway in background
       run: |
         cd src/Gateway

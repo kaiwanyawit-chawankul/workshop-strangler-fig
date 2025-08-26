@@ -7,3 +7,8 @@ Accept: application/json
 
 DELETE {{Monolith_HostAddress}}/clear/
 Accept: application/json
+
+###
+
+GET {{Monolith_HostAddress}}/users/
+Accept: application/json

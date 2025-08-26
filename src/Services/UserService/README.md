@@ -44,4 +44,4 @@ DOTNET_URLS=http://localhost:5091 dotnet run
 # gateway
 DOTNET_URLS=http://localhost:5080 dotnet watch run
 # AcceptanceTests
-dotnet test
+DOTNET_URLS=http://localhost:5080 dotnet test

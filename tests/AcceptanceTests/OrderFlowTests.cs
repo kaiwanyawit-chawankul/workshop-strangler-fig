@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http.Json;
 using FluentAssertions;
 using Monolith.Data;
@@ -5,7 +6,14 @@ using Xunit;
 
 public class OrderFlowTests
 {
-    private readonly HttpClient _http = new() { BaseAddress = new Uri("http://localhost:5080") }; // Monolith for Step 1
+    private readonly string MonolithBaseUrl;
+    private readonly HttpClient _http;
+
+    public OrderFlowTests()
+    {
+        MonolithBaseUrl = Environment.GetEnvironmentVariable("DOTNET_URLS") ?? "http://localhost:5080";
+        _http = new() { BaseAddress = new Uri(MonolithBaseUrl) };
+    }
 
     [Fact]
     public async Task PlaceOrder_SendsConfirmationAndPersists()
