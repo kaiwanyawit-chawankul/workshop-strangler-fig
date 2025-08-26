@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ step2 ]
+    branches: [ step3 ]
   pull_request:
     branches: [ main ]
 
@@ -31,6 +31,12 @@ jobs:
       run: |
         cd src/Services/UserService
         DOTNET_URLS=http://localhost:5091 dotnet run &
+        sleep 5  # give it time to boot
+
+    - name: Run ProductService in background
+      run: |
+        cd src/Services/ProductService
+        DOTNET_URLS=http://localhost:5092 dotnet run &
         sleep 5  # give it time to boot
     - name: Run Gateway in background
       run: |

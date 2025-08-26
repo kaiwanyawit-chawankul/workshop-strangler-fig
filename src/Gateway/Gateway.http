@@ -12,3 +12,8 @@ Accept: application/json
 
 GET {{Monolith_HostAddress}}/users/
 Accept: application/json
+
+###
+
+GET {{Monolith_HostAddress}}/products/
+Accept: application/json
